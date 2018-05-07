@@ -1,0 +1,21 @@
+{
+  "name": "three_cube",
+  "version": "1.0.0",
+  "description": "three.js cube",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ivan Oschepkov",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "three": "^0.92.0",
+    "webpack": "^4.8.0"
+  },
+  "dependencies": {
+    "npm": "^6.0.0"
+  }
+}
