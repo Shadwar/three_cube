@@ -16,7 +16,7 @@ export default class Application {
     this.camera.position.z = 400;
 
     this.light = new DirectionalLight(0xffffff);
-    this.light.position.set(1, 1, 1);
+    this.light.position.set(0, 0, 100);
     this.scene.add(this.light);
 
     this.raycaster = new Raycaster()

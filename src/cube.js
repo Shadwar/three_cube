@@ -1,4 +1,4 @@
-import {Group} from 'three';
+import {Group, Vector3} from 'three';
 import Vertex from './vertex';
 import Edge from './edge';
 
@@ -31,11 +31,10 @@ export default class Cube extends Group {
 
     for (let i = 0; i < vert_coords.length; i++) {
       let vertex = new Vertex(size/15, vert_colors[i]);
-      vertex.position.set(...vert_coords[i]);
+      vertex.setPosition(...vert_coords[i]);
+
       vertices.push(vertex);
       this.add(vertex);
-
-      vertex.shader_mesh.position.set(...vert_coords[i]);
       this.outline.add(vertex.shader_mesh);
     }
 
@@ -55,10 +54,13 @@ export default class Cube extends Group {
     ];
 
     for (let coord of edge_coords) {
-      let edge = new Edge(0x777777, vert_coords[coord[0]], vert_coords[coord[1]]);
+      let edge = new Edge(size, 0x777777);
+      edge.setPosition(vert_coords[coord[0]][0], vert_coords[coord[0]][1], vert_coords[coord[0]][2]);
+      edge.lookAt(vert_coords[coord[1]][0], vert_coords[coord[1]][1], vert_coords[coord[1]][2]);
       vertices[coord[0]].addEdge(edge);
       vertices[coord[1]].addEdge(edge);
       this.add(edge);
+      this.outline.add(edge.shader_mesh);
     }
   }
 

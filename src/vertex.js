@@ -33,4 +33,10 @@ export default class Vertex extends Mesh {
       edge.material.color.set(this.material.color);
     }
   }
+
+  /* Установка положения */
+  setPosition(x, y, z) {
+    this.position.set(x, y, z);
+    this.shader_mesh.position.set(x, y, z);
+  }
 }
