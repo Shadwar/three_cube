@@ -5,7 +5,7 @@ import outline_shader from './shader';
 /* Класс ребра куба */
 export default class Edge extends Mesh {
   constructor(size, color) {
-    const geometry = new CylinderGeometry(size/30, size/30, size, 32)
+    const geometry = new CylinderGeometry(size/90, size/90, size, 32)
     geometry.translate(0, size/2, 0);
     geometry.rotateX(Math.PI / 2);
     const material = new MeshStandardMaterial({ color: color });
@@ -23,11 +23,15 @@ export default class Edge extends Mesh {
     this.shader_mesh = mesh;
   }
 
+  /* Установка положения ребра
+  */
   setPosition(x, y, z) {
     this.position.set(x, y, z);
     this.shader_mesh.position.set(x, y, z);
   }
 
+  /* Направить ребро от начальной точки в сторону конечной
+  */
   lookAt(x, y, z) {
     const endPoint = new Vector3(x, y, z);
     super.lookAt(endPoint);

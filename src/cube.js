@@ -2,7 +2,8 @@ import {Group, Vector3} from 'three';
 import Vertex from './vertex';
 import Edge from './edge';
 
-
+/* Куб, состоит из отдельных вершин и ребер
+*/
 export default class Cube extends Group {
   constructor(size, vert_colors) {
     super();
@@ -12,7 +13,7 @@ export default class Cube extends Group {
     this.createBody(size, vert_colors);
   }
 
-  /* Создание тела кубика */
+  /* Создание тела куба */
   createBody(size, vert_colors) {
     const half = size / 2;
 
@@ -30,7 +31,7 @@ export default class Cube extends Group {
     let vertices = [];
 
     for (let i = 0; i < vert_coords.length; i++) {
-      let vertex = new Vertex(size/15, vert_colors[i]);
+      let vertex = new Vertex(size/30, vert_colors[i]);
       vertex.setPosition(...vert_coords[i]);
 
       vertices.push(vertex);
@@ -55,8 +56,8 @@ export default class Cube extends Group {
 
     for (let coord of edge_coords) {
       let edge = new Edge(size, 0x777777);
-      edge.setPosition(vert_coords[coord[0]][0], vert_coords[coord[0]][1], vert_coords[coord[0]][2]);
-      edge.lookAt(vert_coords[coord[1]][0], vert_coords[coord[1]][1], vert_coords[coord[1]][2]);
+      edge.setPosition(...vert_coords[coord[0]]);
+      edge.lookAt(...vert_coords[coord[1]]);
       vertices[coord[0]].addEdge(edge);
       vertices[coord[1]].addEdge(edge);
       this.add(edge);
@@ -64,11 +65,15 @@ export default class Cube extends Group {
     }
   }
 
+  /* Установка положения всего куба, включая outline
+  */
   setPosition(x, y, z) {
     this.position.set(x, y, z);
     this.outline.position.set(x, y, z);
   }
 
+  /* Установка вращения всего куба, включая outline
+  */
   setRotation(x, y) {
     this.rotation.x = x;
     this.rotation.y = y;
