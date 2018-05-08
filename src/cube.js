@@ -1,4 +1,5 @@
-import {Group, SphereGeometry, MeshBasicMaterial, Mesh, LineBasicMaterial, Geometry, Line, Vector3} from 'three';
+import {Group, LineBasicMaterial, Geometry, Line, Vector3} from 'three';
+import Vertex from './vertex';
 
 
 export default class Cube extends Group {
@@ -10,8 +11,9 @@ export default class Cube extends Group {
     this.createBody(size, vert_colors);
   }
 
+  /* Создание тела кубика */
   createBody(size, vert_colors) {
-    const vertex_coords = [
+    const vert_coords = [
       [-1.0, -1.0,  1.0],
       [-1.0,  1.0,  1.0],
       [ 1.0,  1.0,  1.0],
@@ -22,12 +24,9 @@ export default class Cube extends Group {
       [ 1.0, -1.0, -1.0],
     ];
 
-    const vertexGeometry = new SphereGeometry(size/20, 32, 32);
-
-    for (let i = 0; i < vertex_coords.length; i++) {
-      let vertexMaterial = new MeshBasicMaterial({ color: vert_colors[i] });
-      let vertex = new Mesh(vertexGeometry, vertexMaterial);
-      vertex.position.set(...vertex_coords[i]);
+    for (let i = 0; i < vert_coords.length; i++) {
+      let vertex = new Vertex(size/20, vert_colors[i]);
+      vertex.position.set(...vert_coords[i]);
       this.all_vertices.push(vertex);
       this.add(vertex);
     }
@@ -51,8 +50,8 @@ export default class Cube extends Group {
     for (let coord of edge_coords) {
       let edgeGeometry = new Geometry();
       edgeGeometry.vertices.push(
-        new Vector3(...vertex_coords[coord[0]]),
-        new Vector3(...vertex_coords[coord[1]])
+        new Vector3(...vert_coords[coord[0]]),
+        new Vector3(...vert_coords[coord[1]])
       );
       let edge = new Line(edgeGeometry, edgeMaterial);
       this.add(edge);
