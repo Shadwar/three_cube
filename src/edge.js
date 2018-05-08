@@ -12,5 +12,6 @@ export default class Edge extends Line {
     );
 
     super(geometry, material);
+    this.name = 'Edge';
   }
 }

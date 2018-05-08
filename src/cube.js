@@ -6,8 +6,7 @@ import Edge from './edge';
 export default class Cube extends Group {
   constructor(size, vert_colors) {
     super();
-
-    this.all_vertices = [];
+    this.name = 'Cube';
 
     this.createBody(size, vert_colors);
   }
@@ -25,10 +24,12 @@ export default class Cube extends Group {
       [ 1.0, -1.0, -1.0],
     ];
 
+    let vertices = [];
+
     for (let i = 0; i < vert_coords.length; i++) {
       let vertex = new Vertex(size/20, vert_colors[i]);
       vertex.position.set(...vert_coords[i]);
-      this.all_vertices.push(vertex);
+      vertices.push(vertex);
       this.add(vertex);
     }
 
@@ -49,8 +50,8 @@ export default class Cube extends Group {
 
     for (let coord of edge_coords) {
       let edge = new Edge(0x777777, vert_coords[coord[0]], vert_coords[coord[1]]);
-      this.all_vertices[coord[0]].addEdge(edge);
-      this.all_vertices[coord[1]].addEdge(edge);
+      vertices[coord[0]].addEdge(edge);
+      vertices[coord[1]].addEdge(edge);
       this.add(edge);
     }
   }

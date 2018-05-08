@@ -7,6 +7,7 @@ export default class Vertex extends Mesh {
     const geometry = new SphereGeometry(size, 32, 32);
     const material = new MeshBasicMaterial({ color: color });
     super(geometry, material);
+    this.name = 'Vertex';
 
     this.edges = [];
   }
@@ -14,5 +15,12 @@ export default class Vertex extends Mesh {
   /* Добавление прилегающего ребра */
   addEdge(edge) {
     this.edges.push(edge);
+  }
+
+  /* Перекраска всех прилегающих ребер */
+  recolorEdges() {
+    for (let edge of this.edges) {
+      edge.material.color.set(this.material.color);
+    }
   }
 }
