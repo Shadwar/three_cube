@@ -1,5 +1,6 @@
-import {Group, LineBasicMaterial, Geometry, Line, Vector3} from 'three';
+import {Group} from 'three';
 import Vertex from './vertex';
+import Edge from './edge';
 
 
 export default class Cube extends Group {
@@ -46,14 +47,10 @@ export default class Cube extends Group {
       [3, 7]
     ];
 
-    const edgeMaterial = new LineBasicMaterial({ color: 0x777777, linewidth: 4});
     for (let coord of edge_coords) {
-      let edgeGeometry = new Geometry();
-      edgeGeometry.vertices.push(
-        new Vector3(...vert_coords[coord[0]]),
-        new Vector3(...vert_coords[coord[1]])
-      );
-      let edge = new Line(edgeGeometry, edgeMaterial);
+      let edge = new Edge(0x777777, vert_coords[coord[0]], vert_coords[coord[1]]);
+      this.all_vertices[coord[0]].addEdge(edge);
+      this.all_vertices[coord[1]].addEdge(edge);
       this.add(edge);
     }
   }
