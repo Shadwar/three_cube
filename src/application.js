@@ -1,4 +1,4 @@
-import {Scene, PerspectiveCamera, WebGLRenderer, Raycaster, Vector2} from 'three';
+import {Scene, PerspectiveCamera, DirectionalLight, WebGLRenderer, Raycaster, Vector2} from 'three';
 import Cube from './cube';
 
 
@@ -10,16 +10,21 @@ export default class Application {
     this.height = height;
 
     this.scene = new Scene();
+    this.outlineScene = new Scene();
 
-    this.camera = new PerspectiveCamera(75, this.width/this.height, 0.1, 1000);
-    this.camera.position.z = 5;
+    this.camera = new PerspectiveCamera(40, this.width/this.height, 50, 10000);
+    this.camera.position.z = 400;
+
+    this.light = new DirectionalLight(0xffffff);
+    this.light.position.set(1, 1, 1);
+    this.scene.add(this.light);
 
     this.raycaster = new Raycaster()
 
-    this.renderer = new WebGLRenderer();
+    this.renderer = new WebGLRenderer({antialias: true});
     this.renderer.setSize(this.width, this.height);
+    this.renderer.autoClear = false;
     this.renderer.domElement.addEventListener('click', (e) => this.onclick(e), true);
-
 
     this.populateScene();
   }
@@ -35,11 +40,12 @@ export default class Application {
     const rand = (min, max) => Math.random() * (max - min) + min;
 
     for (let i = 0; i < cubeCount; i++) {
-      let cube = new Cube(rand(0.3, 1.0), [0xff0000, 0x00ff00, 0x0000ff, 0xffff00, 0xff00ff, 0x00ffff, 0x333333, 0xCCCCCC]);
-      cube.position.set(rand(-2.0, 2.0), rand(-2.0, 2.0), rand(-1.0, 1.0));
-      cube.rotation.x = rand(0, 1.0);
-      cube.rotation.y = rand(0, 1.0);
+      let cube = new Cube(50, [0xff0000, 0x00ff00, 0x0000ff, 0xffff00, 0xff00ff, 0x00ffff, 0x333333, 0xCCCCCC]);
+      cube.setPosition(rand(-100, 100), rand(-100, 100), rand(-100, 100));
+      cube.setRotation(rand(0, 180) * Math.PI/180, rand(0, 180) * Math.PI/180);
+
       this.scene.add(cube);
+      this.outlineScene.add(cube.outline);
     }
   }
 
@@ -59,6 +65,7 @@ export default class Application {
   run() {
     const animate = () => {
       requestAnimationFrame(animate);
+      this.renderer.render(this.outlineScene, this.camera);
       this.renderer.render(this.scene, this.camera);
     }
     animate();

@@ -7,21 +7,24 @@ export default class Cube extends Group {
   constructor(size, vert_colors) {
     super();
     this.name = 'Cube';
+    this.outline = new Group();
 
     this.createBody(size, vert_colors);
   }
 
   /* Создание тела кубика */
   createBody(size, vert_colors) {
+    const half = size / 2;
+
     const vert_coords = [
-      [-1.0, -1.0,  1.0],
-      [-1.0,  1.0,  1.0],
-      [ 1.0,  1.0,  1.0],
-      [ 1.0, -1.0,  1.0],
-      [-1.0, -1.0, -1.0],
-      [-1.0,  1.0, -1.0],
-      [ 1.0,  1.0, -1.0],
-      [ 1.0, -1.0, -1.0],
+      [-half, -half,  half],
+      [-half,  half,  half],
+      [ half,  half,  half],
+      [ half, -half,  half],
+      [-half, -half, -half],
+      [-half,  half, -half],
+      [ half,  half, -half],
+      [ half, -half, -half],
     ];
 
     let vertices = [];
@@ -31,6 +34,9 @@ export default class Cube extends Group {
       vertex.position.set(...vert_coords[i]);
       vertices.push(vertex);
       this.add(vertex);
+
+      vertex.shader_mesh.position.set(...vert_coords[i]);
+      this.outline.add(vertex.shader_mesh);
     }
 
     const edge_coords = [
@@ -54,6 +60,19 @@ export default class Cube extends Group {
       vertices[coord[1]].addEdge(edge);
       this.add(edge);
     }
+  }
+
+  setPosition(x, y, z) {
+    this.position.set(x, y, z);
+    this.outline.position.set(x, y, z);
+  }
+
+  setRotation(x, y) {
+    this.rotation.x = x;
+    this.rotation.y = y;
+
+    this.outline.rotation.x = x;
+    this.outline.rotation.y = y;
   }
 }
 
