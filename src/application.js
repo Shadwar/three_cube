@@ -26,13 +26,21 @@ export default class Application {
 
   /* Наполнение сцены кубами */
   populateScene() {
-    var cube1 = new Cube(1, [0xff0000, 0x00ff00, 0x0000ff, 0xffff00, 0xff00ff, 0x00ffff, 0x333333, 0xCCCCCC]);
-    cube1.position.set(-0.5, -1, 0);
-    var cube2 = new Cube(1, [0xff0000, 0x00ff00, 0x0000ff, 0xffff00, 0xff00ff, 0x00ffff, 0x333333, 0xCCCCCC]);
-    cube2.position.set(1, 0.5, 0);
+    let cubeCount = NaN;
 
-    this.scene.add(cube1);
-    this.scene.add(cube2);
+    while (isNaN(cubeCount)) {
+      cubeCount = parseInt(window.prompt('Number of cubes', '1'));
+    }
+
+    const rand = (min, max) => Math.random() * (max - min) + min;
+
+    for (let i = 0; i < cubeCount; i++) {
+      let cube = new Cube(rand(0.3, 1.0), [0xff0000, 0x00ff00, 0x0000ff, 0xffff00, 0xff00ff, 0x00ffff, 0x333333, 0xCCCCCC]);
+      cube.position.set(rand(-2.0, 2.0), rand(-2.0, 2.0), rand(-1.0, 1.0));
+      cube.rotation.x = rand(0, 1.0);
+      cube.rotation.y = rand(0, 1.0);
+      this.scene.add(cube);
+    }
   }
 
   /* Событие нажатия мышки. Сделать рейкаст по вершинам всех кубов в сцене */

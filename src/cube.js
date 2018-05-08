@@ -27,7 +27,7 @@ export default class Cube extends Group {
     let vertices = [];
 
     for (let i = 0; i < vert_coords.length; i++) {
-      let vertex = new Vertex(size/20, vert_colors[i]);
+      let vertex = new Vertex(size/15, vert_colors[i]);
       vertex.position.set(...vert_coords[i]);
       vertices.push(vertex);
       this.add(vertex);
