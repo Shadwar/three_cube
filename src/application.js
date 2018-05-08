@@ -1,4 +1,6 @@
-import {Scene, PerspectiveCamera, WebGLRenderer} from 'three/build/three.module';
+import {Scene, PerspectiveCamera, WebGLRenderer, Group, BoxBufferGeometry, MeshBasicMaterial, Mesh} from 'three/build/three.module';
+import Cube from './cube';
+
 
 
 /* Класс приложения, отвечает за создание и отрисовку сцены, управление событиями */
@@ -20,6 +22,8 @@ export default class Application {
 
   /* Наполнение сцены кубами */
   populateScene() {
+    var cube = new Cube(1, [0xff0000, 0x00ff00, 0x0000ff, 0xffff00, 0xff00ff, 0x00ffff, 0x333333, 0xCCCCCC]);
+    this.scene.add(cube);
   }
 
   /* Запуск приложения */
