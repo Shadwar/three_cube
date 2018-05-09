@@ -3,7 +3,9 @@ import Cube from './cube';
 
 
 
-/* Класс приложения, отвечает за создание и отрисовку сцены, управление событиями */
+/**
+ * Класс приложения, отвечает за создание и отрисовку сцены, управление событиями.
+ */
 export default class Application {
   constructor(width, height) {
     this.width = width;
@@ -29,7 +31,10 @@ export default class Application {
     this.populateScene();
   }
 
-  /* Наполнение сцены кубами */
+  /**
+   * Наполнение сцены кубами.
+   * Запрашивает у пользователя количество кубов и случайно их расставляет на сцене.
+   */
   populateScene() {
     let cubeCount = NaN;
 
@@ -49,7 +54,12 @@ export default class Application {
     }
   }
 
-  /* Событие нажатия мышки. Сделать рейкаст по вершинам всех кубов в сцене */
+  /**
+   * Событие нажатия мыши. 
+   * Производит рейкаст по вершинам всех кубов в сцене и вызывает событие перекраски нажатой вершины. 
+   * 
+   * @param {MouseEvent} event - событие нажатия мыши
+   */
   onclick(event) {
     const mouse = new Vector2(( event.clientX / this.width ) * 2 - 1, - ( event.clientY / this.height ) * 2 + 1)
     this.raycaster.setFromCamera(mouse, this.camera);
@@ -61,7 +71,12 @@ export default class Application {
     }
   }
 
-  /* Запуск приложения */
+  /**
+   * Запуск приложения.
+   * Запускается цикл постоянной отрисовки сцены.
+   * Можно сделать отрисовку по событию клика, но заранее выбран такой вариант,
+   * если будут добавлены какие-либо действия на сцене, не зависящие от действий пользователя.
+   */
   run() {
     const animate = () => {
       requestAnimationFrame(animate);

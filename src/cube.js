@@ -2,9 +2,18 @@ import {Group, Vector3} from 'three';
 import Vertex from './vertex';
 import Edge from './edge';
 
-/* Куб, состоит из отдельных вершин и ребер
-*/
+/**
+ * Класс куба.
+ * Представляет собой группу объектов из вершин и соединяющих ребёр.
+ */
 export default class Cube extends Group {
+
+  /**
+   * Куб.
+   * 
+   * @param {number} size - размер граней
+   * @param {array} vert_colors - цвета вершин
+   */
   constructor(size, vert_colors) {
     super();
     this.name = 'Cube';
@@ -13,7 +22,13 @@ export default class Cube extends Group {
     this.createBody(size, vert_colors);
   }
 
-  /* Создание тела куба */
+  /**
+   * Создание тела куба.
+   * Создаются вершины выбранного цвета и соединяются ребрами.
+   *
+   * @param {number} size - размер граней
+   * @param {array} vert_colors - цвета вершин
+   */
   createBody(size, vert_colors) {
     const half = size / 2;
 
@@ -65,15 +80,25 @@ export default class Cube extends Group {
     }
   }
 
-  /* Установка положения всего куба, включая outline
-  */
+  /**
+   * Установка положения всего куба, включая outline эффект.
+   *
+   * @param {number} x
+   * @param {number} y
+   * @param {number} z
+   */
   setPosition(x, y, z) {
     this.position.set(x, y, z);
     this.outline.position.set(x, y, z);
   }
 
-  /* Установка вращения всего куба, включая outline
-  */
+  /**
+   * Установка вращения всего куба, включая outline
+   *
+   * @param {number} x
+   * @param {number} y
+   * @param {number} z
+   */
   setRotation(x, y) {
     this.rotation.x = x;
     this.rotation.y = y;

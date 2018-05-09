@@ -1,3 +1,6 @@
+/**
+ * Шейдер для outline эффекта
+ */
 const outline_shader = {
   uniforms: {"offset":  { type: "f", value: 1.0 }},
   vertexShader: [
